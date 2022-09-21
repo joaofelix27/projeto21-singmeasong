@@ -6,7 +6,7 @@ export default async function createRecommedations(
 ) {
 
 const recommendations= {
-    name: faker.lorem.word(),
+    name: faker.lorem.words(),
       youtubeLink:"https://www.youtube.com/watch?v=iyIqX9W8nVw",
 }
 

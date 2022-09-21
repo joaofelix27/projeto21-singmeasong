@@ -14,11 +14,19 @@ beforeEach(async () => {
 
 
 describe('Add a new song recommendation', () => {
+    it('Try to POST /recommendations with a repeated recommendation name', async () => {
+      const recommendation= await createRecommedations();
+      await agent.post('/recommendations').send(recommendation);
+      const result = await agent.post('/recommendations').send(recommendation);
+
+      expect(result.status).toBe(409);
+    });
   it('Try to POST /recommendations with valid data', async () => {
       const recommendation= await createRecommedations();
     const result = await agent.post('/recommendations').send(recommendation);
     expect(result.status).toBe(201);
   });
+ 
 })
 
 afterAll(async () => {
