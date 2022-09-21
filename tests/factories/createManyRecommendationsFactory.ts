@@ -39,3 +39,30 @@ export  async function createManyScoreFixedRecommedations(type) {
       });
     }
   }
+
+
+  export  async function createBasedOnScoreRanking() {
+    let minValue=0
+    let maxValue=100
+    let lowerScoreName=""
+    let greaterScoreName=""
+    const amount = Math.ceil(Math.random() * (1000 - 10) + 10);
+    for (let i = 1; i <= amount; i++) { 
+        const recommendations = {
+        name: faker.lorem.paragraphs(),
+        youtubeLink: "https://www.youtube.com/watch?v=iyIqX9W8nVw",
+        score: Math.ceil(Math.random() * (maxValue - minValue) + minValue)
+      };
+      if(i===1){
+        lowerScoreName=recommendations.name
+      } else if (i===amount){
+        greaterScoreName=recommendations.name
+      }
+      await prisma.recommendation.create({
+        data: { ...recommendations },
+      });
+      minValue=maxValue;
+      maxValue+=10;
+    }
+    return {names:[lowerScoreName,greaterScoreName],amount:amount}
+  }
