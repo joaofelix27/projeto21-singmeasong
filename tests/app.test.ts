@@ -3,8 +3,12 @@ import app from "../src/app";
 import createRecommedations from "./factories/recommendationFactory";
 import { deleteAllData } from "./factories/scenarioFactory";
 import { prisma } from "../src/database";
+import {createManyScoreFixedRecommedations, createManyScoreMixedRecommedations} from "./factories/createManyRecommendations";
 
 const agent = supertest(app);
+
+jest.setTimeout(30000);
+
 
 beforeEach(async () => {
   deleteAllData();
@@ -77,9 +81,11 @@ describe("downVote a recommendation", () => {
       recommendation.name
     );
     for (let i = 0; i <= 5; i++) {
-      await agent.post(`/recommendations/${findCreatedRecommendation.id}/downvote`);
+      await agent.post(
+        `/recommendations/${findCreatedRecommendation.id}/downvote`
+      );
     }
-    const  result = await findRecommendation(recommendation.name);
+    const result = await findRecommendation(recommendation.name);
     expect(result).toBeNull();
   });
 }); //downVote
@@ -114,6 +120,96 @@ describe("Get a recommendation by id", () => {
     expect(result.body).toBeInstanceOf(Object);
   });
 }); //getById
+
+describe("Get a random recommendation", () => {
+  it("Try to GET /recommendations/random without any data on the database", async () => {
+    let isEmptyObject = false;
+    const result = await agent.get("/recommendations/random");
+    expect(result.status).toBe(404);
+    if (
+      Object.keys(result.body).length === 0 &&
+      result.body.constructor === Object
+    )
+      isEmptyObject = true;
+    expect(isEmptyObject).toBeTruthy();
+  });
+
+  it("Try to GET /recommendations/random having a song recommendation  with score greater than 10 returned 70% of time", async () => {
+    const recommendation = await createManyScoreMixedRecommedations();
+    const scoreGreaterThan10=[]
+    for(let i=0; i<1000;i++){
+      const result = await agent.get("/recommendations/random");
+      const randomRecommendation= result.body
+      if(randomRecommendation.score>10){
+        scoreGreaterThan10.push(randomRecommendation)
+      }
+    }
+    console.log("Length",scoreGreaterThan10.length)
+    expect(scoreGreaterThan10[0]).toHaveProperty('id');
+    expect(scoreGreaterThan10[0]).toHaveProperty('name');
+    expect(scoreGreaterThan10[0]).toHaveProperty('youtubeLink');
+    expect(scoreGreaterThan10[0]).toHaveProperty('score');
+    expect(scoreGreaterThan10.length).toBeGreaterThanOrEqual(670)
+    expect(scoreGreaterThan10.length).toBeLessThanOrEqual(730)
+  });
+
+  it("Try to GET /recommendations/random having a song recommendation  with score lower than 10 returned 30% of time", async () => {
+    const recommendation = await createManyScoreMixedRecommedations();
+    const scoreLowerThan10=[]
+    for(let i=0; i<1000;i++){
+      const result = await agent.get("/recommendations/random");
+      const randomRecommendation= result.body
+      if(randomRecommendation.score<=10){
+        scoreLowerThan10.push(randomRecommendation)
+      }
+    }
+    console.log("Length",scoreLowerThan10.length)
+    expect(scoreLowerThan10[0]).toHaveProperty('id');
+    expect(scoreLowerThan10[0]).toHaveProperty('name');
+    expect(scoreLowerThan10[0]).toHaveProperty('youtubeLink');
+    expect(scoreLowerThan10[0]).toHaveProperty('score');
+    expect(scoreLowerThan10.length).toBeGreaterThanOrEqual(250)
+    expect(scoreLowerThan10.length).toBeLessThanOrEqual(350)
+  });
+
+
+  it("Try to GET /recommendations/random having a random recommendation  when all the song recommendations have a score greater than 10", async () => {
+    const recommendation = await createManyScoreFixedRecommedations("greater");
+    const scoreGreaterThan10=[]
+    for(let i=0; i<1000;i++){
+      const result = await agent.get("/recommendations/random");
+      const randomRecommendation= result.body
+      if(randomRecommendation.score>10){
+        scoreGreaterThan10.push(randomRecommendation)
+      }
+    }
+    console.log("Length",scoreGreaterThan10.length)
+    expect(scoreGreaterThan10[0]).toHaveProperty('id');
+    expect(scoreGreaterThan10[0]).toHaveProperty('name');
+    expect(scoreGreaterThan10[0]).toHaveProperty('youtubeLink');
+    expect(scoreGreaterThan10[0]).toHaveProperty('score');
+    expect(scoreGreaterThan10.length).toEqual(1000)
+  });
+
+
+  it("Try to GET /recommendations/random having a random recommendation  when all the song recommendations have a score lower than 10", async () => {
+    const recommendation = await createManyScoreFixedRecommedations("lower");
+    const scoreLowerThan10=[]
+    for(let i=0; i<1000;i++){
+      const result = await agent.get("/recommendations/random");
+      const randomRecommendation= result.body
+      if(randomRecommendation.score<10){
+        scoreLowerThan10.push(randomRecommendation)
+      }
+    }
+    console.log("Length",scoreLowerThan10.length)
+    expect(scoreLowerThan10[0]).toHaveProperty('id');
+    expect(scoreLowerThan10[0]).toHaveProperty('name');
+    expect(scoreLowerThan10[0]).toHaveProperty('youtubeLink');
+    expect(scoreLowerThan10[0]).toHaveProperty('score');
+    expect(scoreLowerThan10.length).toEqual(1000)
+  });
+}); //random
 
 afterAll(async () => {
   deleteAllData();
