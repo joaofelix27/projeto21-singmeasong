@@ -12,7 +12,7 @@ async function insert(createRecommendationData: CreateRecommendationData) {
     throw conflictError("Recommendations names must be unique");
 
   await recommendationRepository.create(createRecommendationData);
-}
+} //ok
 
 async function upvote(id: number) {
   await getByIdOrFail(id);
@@ -38,11 +38,11 @@ async function getByIdOrFail(id: number) {
   if (!recommendation) throw notFoundError();
 
   return recommendation;
-}
+} //ok
 
 async function get() {
   return recommendationRepository.findAll();
-}
+} //ok
 
 async function getTop(amount: number) {
   return recommendationRepository.getAmountByScore(amount);
