@@ -48,7 +48,7 @@ async function get() {
 
 async function getTop(amount: number) {
   return recommendationRepository.getAmountByScore(amount);
-}
+}//ok
 
 async function getRandom() {
   const random = Math.random();
@@ -82,7 +82,7 @@ function getScoreFilter(random: number) {
   }
 
   return "lte";
-}
+} //ok
 
 export const recommendationService = {
   insert,
@@ -92,4 +92,5 @@ export const recommendationService = {
   get,
   getById: getByIdOrFail,
   getTop,
+  getScoreFilter
 };
