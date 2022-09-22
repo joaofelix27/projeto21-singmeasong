@@ -61,12 +61,12 @@ FN:53,getRandom
 FN:66,getByScore
 FN:79,getScoreFilter
 FNF:9
-FNH:2
+FNH:3
 FNDA:2,insert
 FNDA:0,upvote
 FNDA:0,downvote
 FNDA:2,getByIdOrFail
-FNDA:0,get
+FNDA:1,get
 FNDA:0,getTop
 FNDA:0,getRandom
 FNDA:0,getByScore
@@ -86,7 +86,7 @@ DA:34,0
 DA:39,2
 DA:40,2
 DA:42,1
-DA:46,0
+DA:46,1
 DA:50,0
 DA:54,0
 DA:55,0
@@ -104,7 +104,7 @@ DA:81,0
 DA:84,0
 DA:87,1
 LF:32
-LH:10
+LH:11
 BRDA:13,0,0,1
 BRDA:33,1,0,0
 BRDA:40,2,0,1
@@ -176,10 +176,10 @@ SF:tests/factories/deleteAll.ts
 FN:4,deleteAllData
 FNF:1
 FNH:1
-FNDA:4,deleteAllData
+FNDA:5,deleteAllData
 DA:1,1
 DA:4,1
-DA:5,4
+DA:5,5
 LF:3
 LH:3
 BRF:0

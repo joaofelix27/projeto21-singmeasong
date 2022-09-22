@@ -74,45 +74,43 @@ describe("Unit test of getByIdOrFail", () => {
           .mockResolvedValueOnce(recommendation);
     
     
-        const result=recommendationService.getById(id);
+        const result=await recommendationService.getById(id);
         expect(result).toBeInstanceOf(Object)
+        expect(result).toHaveProperty("id");
+        expect(result).toHaveProperty("name");
+        expect(result).toHaveProperty("youtubeLink");
+        expect(result).toHaveProperty("score");
         expect(recommendationRepository.find).toBeCalledTimes(2);
   });
+});
 
-  //  test('Testing with a repeated name in database', async () => {
-  //    const createRecommendation ={
-  //        name:"SuperBowl50",
-  //        youtubeLink:"https://www.youtube.com/watch?v=c9cUytejf1k"
-  //    }
-  //    const alreadyExistedRecommendation ={
-  //        id:1,
-  //        name:"SuperBowl50",
-  //        youtubeLink:"https://www.youtube.com/watch?v=c9cUytejf1k",
-  //        score:0
-  //    }
-  //    jest
-  //      .spyOn(recommendationRepository, 'findByName')
-  //      .mockResolvedValueOnce(alreadyExistedRecommendation);
+describe("Unit test of get", () => {
+  test("Test to get all recommendations", async () => {
 
-  //      jest.spyOn(recommendationRepository,"create")
+    const arrayReturned =[{
+      id:1,
+      name: "SuperBowl50",
+      youtubeLink: "https://www.youtube.com/watch?v=c9cUytejf1k",
+      score:0
+    },
+    {
+    id:2,
+    name: "SuperBowl51",
+    youtubeLink: "https://www.youtube.com/watch?v=c9cUytejf1k",
+    score:0
+  }]
 
-  //     const result = recommendationService.insert(createRecommendation)
-  //     expect(result).rejects.toEqual({
-  //        type: "conflict",
-  //        message:"Recommendations names must be unique"
-  //    })
-  //  });
+    jest.spyOn(recommendationRepository, "findAll").mockResolvedValueOnce(arrayReturned);
 
-  //   it('Testa não recebe desconto', async () => {
-  //     const value = 90;
-  //     const expectedDiscount = 0;
-  //     const expectedDiscountValue = __calculateDiscount(value, expectedDiscount);
+    const result = await recommendationService.get();
+    console.log("EAE",result)
 
-  //     const { discount, originalPrice, finalPrice } =
-  //       voucherService.calculateDiscount(value);
+    expect(result).toBeInstanceOf(Array);
+    expect(result[0]).toBeInstanceOf(Object);
+    expect(result[0]).toHaveProperty("id");
+    expect(result[0]).toHaveProperty("name");
+    expect(result[0]).toHaveProperty("youtubeLink");
+    expect(result[0]).toHaveProperty("score");
+  })
 
-  //     expect(discount).toBe(expectedDiscount);
-  //     expect(originalPrice).toBe(value);
-  //     expect(finalPrice).toBe(expectedDiscountValue);
-  //   });
 });
