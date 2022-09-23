@@ -18,13 +18,13 @@ async function insert(createRecommendationData: CreateRecommendationData) {
 } //ok
 
 async function upvote(id: number) {
-  await getByIdOrFail(id);
+  await recommendationService2.getById(id);
 
   await recommendationRepository.updateScore(id, "increment");
 }
 
 async function downvote(id: number) {
-  await getByIdOrFail(id);
+  await recommendationService2.getById(id);
 
   const updatedRecommendation = await recommendationRepository.updateScore(
     id,
@@ -35,13 +35,6 @@ async function downvote(id: number) {
     await recommendationRepository.remove(id);
   }
 }
-
-async function getByIdOrFail(id: number) {
-  const recommendation = await recommendationRepository.find(id);
-  if (!recommendation) throw notFoundError();
-
-  return recommendation;
-} //ok
 
 async function get() {
   return recommendationRepository.findAll();
@@ -61,7 +54,7 @@ async function getRandom() {
   }
   const randomIndex =  Math.floor(Math.random() * recommendations.length);
   return recommendations[randomIndex];
-}
+}//ok
 
 
 
@@ -71,6 +64,5 @@ export const recommendationService = {
   downvote,
   getRandom,
   get,
-  getById: getByIdOrFail,
   getTop
 };

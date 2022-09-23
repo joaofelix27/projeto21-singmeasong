@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">81.48% </span>
+                <span class="strong">78.26% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>22/27</span>
+                <span class='fraction'>18/23</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">75% </span>
+                <span class="strong">66.66% </span>
                 <span class="quiet">Branches</span>
-                <span class='fraction'>3/4</span>
+                <span class='fraction'>2/3</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">85.71% </span>
+                <span class="strong">83.33% </span>
                 <span class="quiet">Functions</span>
-                <span class='fraction'>6/7</span>
+                <span class='fraction'>5/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">80.76% </span>
+                <span class="strong">78.26% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>21/26</span>
+                <span class='fraction'>18/23</span>
             </div>
         
             
@@ -61,7 +61,7 @@
             </div>
         </template>
     </div>
-    <div class='status-line high'></div>
+    <div class='status-line medium'></div>
     <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -131,15 +131,7 @@
 <a name='L66'></a><a href='#L66'>66</a>
 <a name='L67'></a><a href='#L67'>67</a>
 <a name='L68'></a><a href='#L68'>68</a>
-<a name='L69'></a><a href='#L69'>69</a>
-<a name='L70'></a><a href='#L70'>70</a>
-<a name='L71'></a><a href='#L71'>71</a>
-<a name='L72'></a><a href='#L72'>72</a>
-<a name='L73'></a><a href='#L73'>73</a>
-<a name='L74'></a><a href='#L74'>74</a>
-<a name='L75'></a><a href='#L75'>75</a>
-<a name='L76'></a><a href='#L76'>76</a>
-<a name='L77'></a><a href='#L77'>77</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L69'></a><a href='#L69'>69</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
@@ -178,13 +170,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -207,7 +192,6 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -235,13 +219,13 @@ async function insert(createRecommendationData: CreateRecommendationData) {
 } //ok
 &nbsp;
 async function upvote(id: number) {
-  await getByIdOrFail(id);
+  await recommendationService2.getById(id);
 &nbsp;
 <span class="cstat-no" title="statement not covered" >  await recommendationRepository.updateScore(id, "increment");</span>
 }
 &nbsp;
 async function <span class="fstat-no" title="function not covered" >downvote(</span>id: number) {
-<span class="cstat-no" title="statement not covered" >  await getByIdOrFail(id);</span>
+<span class="cstat-no" title="statement not covered" >  await recommendationService2.getById(id);</span>
 &nbsp;
   const updatedRecommendation = <span class="cstat-no" title="statement not covered" >await recommendationRepository.updateScore(</span>
     id,
@@ -252,13 +236,6 @@ async function <span class="fstat-no" title="function not covered" >downvote(</s
 <span class="cstat-no" title="statement not covered" >    await recommendationRepository.remove(id);</span>
   }
 }
-&nbsp;
-async function getByIdOrFail(id: number) {
-  const recommendation = await recommendationRepository.find(id);
-  if (!recommendation) throw notFoundError();
-&nbsp;
-  return recommendation;
-} //ok
 &nbsp;
 async function get() {
   return recommendationRepository.findAll();
@@ -278,7 +255,7 @@ async function getRandom() {
   }
   const randomIndex =  Math.floor(Math.random() * recommendations.length);
   return recommendations[randomIndex];
-}
+}//ok
 &nbsp;
 &nbsp;
 &nbsp;
@@ -288,7 +265,6 @@ export const recommendationService = {
   downvote,
   getRandom,
   get,
-  getById: getByIdOrFail,
   getTop
 };
 &nbsp;</pre></td></tr></table></pre>
@@ -298,7 +274,7 @@ export const recommendationService = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-09-23T03:19:20.719Z
+                at 2022-09-23T03:30:07.098Z
             </div>
         <script src="prettify.js"></script>
         <script>

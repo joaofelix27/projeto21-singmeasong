@@ -57,7 +57,7 @@ describe("Unit test of getByIdOrFail", () => {
 
     jest.spyOn(recommendationRepository, "find").mockResolvedValueOnce(null);
 
-    const result = recommendationService.getById(id);
+    const result = recommendationService2.getById(id);
 
     expect(result).rejects.toEqual({
       type: "not_found",
@@ -77,7 +77,7 @@ describe("Unit test of getByIdOrFail", () => {
       .spyOn(recommendationRepository, "find")
       .mockResolvedValueOnce(recommendation);
 
-    const result = await recommendationService.getById(id);
+    const result = await recommendationService2.getById(id);
     expect(result).toBeInstanceOf(Object);
     expect(result).toHaveProperty("id");
     expect(result).toHaveProperty("name");
@@ -136,16 +136,7 @@ describe("Unit test of upvote", () => {
 describe("Unit test of getTop", () => {
   test("Test to get the recommendations ordered by score", async () => {
     const amount = Math.ceil(Math.random() * (50 - 10) + 10);
-    const filledArray = [];
-    for(let i=0;i<amount;i++){
-      const recommendation = {
-        id: Math.ceil(Math.random() * (1000 - 1) + 1),
-        name: `SuperBowl${i}`,
-        youtubeLink: "https://www.youtube.com/watch?v=c9cUytejf1k",
-        score: Math.ceil(Math.random() * (1000 + 5) - 5),
-      };
-      filledArray.push(recommendation)
-    }
+    const filledArray= await createOnlyGtrOrLteThan10 ("lte")
     jest
       .spyOn(recommendationRepository, "getAmountByScore")
       .mockResolvedValueOnce(filledArray);
