@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<coverage generated="1663960002999" clover="3.2.0">
+  <project timestamp="1663960002999" name="All files">
+    <metrics statements="89" coveredstatements="89" conditionals="7" coveredconditionals="7" methods="16" coveredmethods="16" elements="112" coveredelements="112" complexity="0" loc="89" ncloc="89" packages="5" files="6" classes="6"/>
+    <package name="src">
+      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="app.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song-back-end/back-end/src/app.ts">
+        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.controllers">
+      <metrics statements="26" coveredstatements="26" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="7"/>
+      <file name="recommendationController.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song-back-end/back-end/src/controllers/recommendationController.ts">
+        <metrics statements="26" coveredstatements="26" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="7"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="3" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="5" count="1" type="stmt"/>
+        <line num="8" count="9" type="stmt"/>
+        <line num="9" count="9" type="cond" truecount="1" falsecount="0"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="13" count="8" type="stmt"/>
+        <line num="15" count="7" type="stmt"/>
+        <line num="19" count="2" type="stmt"/>
+        <line num="21" count="2" type="stmt"/>
+        <line num="23" count="1" type="stmt"/>
+        <line num="27" count="8" type="stmt"/>
+        <line num="29" count="8" type="stmt"/>
+        <line num="31" count="7" type="stmt"/>
+        <line num="35" count="4001" type="stmt"/>
+        <line num="37" count="4000" type="stmt"/>
+        <line num="41" count="1" type="stmt"/>
+        <line num="42" count="1" type="stmt"/>
+        <line num="46" count="2" type="stmt"/>
+        <line num="48" count="2" type="stmt"/>
+        <line num="49" count="2" type="stmt"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="55" count="2" type="stmt"/>
+        <line num="56" count="1" type="stmt"/>
+        <line num="59" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.routers">
+      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="recommendationRouter.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song-back-end/back-end/src/routers/recommendationRouter.ts">
+        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="8" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
+        <line num="10" count="1" type="stmt"/>
+        <line num="11" count="1" type="stmt"/>
+        <line num="12" count="1" type="stmt"/>
+        <line num="14" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.schemas">
+      <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <file name="recommendationsSchemas.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song-back-end/back-end/src/schemas/recommendationsSchemas.ts">
+        <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+      </file>
+    </package>
+    <package name="src.services">
+      <metrics statements="38" coveredstatements="38" conditionals="6" coveredconditionals="6" methods="9" coveredmethods="9"/>
+      <file name="recommendationService2.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song-back-end/back-end/src/services/recommendationService2.ts">
+        <metrics statements="15" coveredstatements="15" conditionals="3" coveredconditionals="3" methods="3" coveredmethods="3"/>
+        <line num="1" count="2" type="stmt"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="5" count="4006" type="stmt"/>
+        <line num="9" count="4006" type="cond" truecount="1" falsecount="0"/>
+        <line num="10" count="3003" type="stmt"/>
+        <line num="13" count="1003" type="stmt"/>
+        <line num="16" count="2" type="stmt"/>
+        <line num="17" count="4003" type="cond" truecount="1" falsecount="0"/>
+        <line num="18" count="2790" type="stmt"/>
+        <line num="21" count="1213" type="stmt"/>
+        <line num="25" count="14" type="stmt"/>
+        <line num="26" count="14" type="cond" truecount="1" falsecount="0"/>
+        <line num="28" count="10" type="stmt"/>
+        <line num="31" count="2" type="stmt"/>
+      </file>
+      <file name="recommendationsService.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song-back-end/back-end/src/services/recommendationsService.ts">
+        <metrics statements="23" coveredstatements="23" conditionals="3" coveredconditionals="3" methods="6" coveredmethods="6"/>
+        <line num="2" count="2" type="stmt"/>
+        <line num="3" count="2" type="stmt"/>
+        <line num="4" count="2" type="stmt"/>
+        <line num="11" count="10" type="stmt"/>
+        <line num="14" count="10" type="cond" truecount="1" falsecount="0"/>
+        <line num="15" count="2" type="stmt"/>
+        <line num="17" count="8" type="stmt"/>
+        <line num="21" count="4" type="stmt"/>
+        <line num="23" count="2" type="stmt"/>
+        <line num="27" count="11" type="stmt"/>
+        <line num="29" count="9" type="stmt"/>
+        <line num="34" count="9" type="cond" truecount="1" falsecount="0"/>
+        <line num="35" count="2" type="stmt"/>
+        <line num="40" count="2" type="stmt"/>
+        <line num="44" count="3" type="stmt"/>
+        <line num="48" count="4003" type="stmt"/>
+        <line num="49" count="4003" type="stmt"/>
+        <line num="51" count="4003" type="stmt"/>
+        <line num="52" count="4003" type="cond" truecount="1" falsecount="0"/>
+        <line num="53" count="2" type="stmt"/>
+        <line num="55" count="4001" type="stmt"/>
+        <line num="56" count="4001" type="stmt"/>
+        <line num="61" count="2" type="stmt"/>
+      </file>
+    </package>
+  </project>
+</coverage>
