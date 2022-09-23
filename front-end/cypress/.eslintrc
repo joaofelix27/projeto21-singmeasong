@@ -1,0 +1,6 @@
+{
+
+    "extends":[
+        "plugin:crypress/recommended"
+    ]
+}

@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1663960002999" clover="3.2.0">
-  <project timestamp="1663960002999" name="All files">
+<coverage generated="1663964364208" clover="3.2.0">
+  <project timestamp="1663964364208" name="All files">
     <metrics statements="89" coveredstatements="89" conditionals="7" coveredconditionals="7" methods="16" coveredmethods="16" elements="112" coveredelements="112" complexity="0" loc="89" ncloc="89" packages="5" files="6" classes="6"/>
     <package name="src">
       <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="app.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song-back-end/back-end/src/app.ts">
+      <file name="app.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song/back-end/src/app.ts">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -21,7 +21,7 @@
     </package>
     <package name="src.controllers">
       <metrics statements="26" coveredstatements="26" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="7"/>
-      <file name="recommendationController.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song-back-end/back-end/src/controllers/recommendationController.ts">
+      <file name="recommendationController.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song/back-end/src/controllers/recommendationController.ts">
         <metrics statements="26" coveredstatements="26" conditionals="1" coveredconditionals="1" methods="7" coveredmethods="7"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
@@ -53,7 +53,7 @@
     </package>
     <package name="src.routers">
       <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="recommendationRouter.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song-back-end/back-end/src/routers/recommendationRouter.ts">
+      <file name="recommendationRouter.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song/back-end/src/routers/recommendationRouter.ts">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
@@ -70,7 +70,7 @@
     </package>
     <package name="src.schemas">
       <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
-      <file name="recommendationsSchemas.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song-back-end/back-end/src/schemas/recommendationsSchemas.ts">
+      <file name="recommendationsSchemas.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song/back-end/src/schemas/recommendationsSchemas.ts">
         <metrics statements="3" coveredstatements="3" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
@@ -79,25 +79,25 @@
     </package>
     <package name="src.services">
       <metrics statements="38" coveredstatements="38" conditionals="6" coveredconditionals="6" methods="9" coveredmethods="9"/>
-      <file name="recommendationService2.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song-back-end/back-end/src/services/recommendationService2.ts">
+      <file name="recommendationService2.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song/back-end/src/services/recommendationService2.ts">
         <metrics statements="15" coveredstatements="15" conditionals="3" coveredconditionals="3" methods="3" coveredmethods="3"/>
         <line num="1" count="2" type="stmt"/>
         <line num="2" count="2" type="stmt"/>
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="4006" type="stmt"/>
         <line num="9" count="4006" type="cond" truecount="1" falsecount="0"/>
-        <line num="10" count="3003" type="stmt"/>
-        <line num="13" count="1003" type="stmt"/>
+        <line num="10" count="2985" type="stmt"/>
+        <line num="13" count="1021" type="stmt"/>
         <line num="16" count="2" type="stmt"/>
         <line num="17" count="4003" type="cond" truecount="1" falsecount="0"/>
-        <line num="18" count="2790" type="stmt"/>
-        <line num="21" count="1213" type="stmt"/>
+        <line num="18" count="2806" type="stmt"/>
+        <line num="21" count="1197" type="stmt"/>
         <line num="25" count="14" type="stmt"/>
         <line num="26" count="14" type="cond" truecount="1" falsecount="0"/>
         <line num="28" count="10" type="stmt"/>
         <line num="31" count="2" type="stmt"/>
       </file>
-      <file name="recommendationsService.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song-back-end/back-end/src/services/recommendationsService.ts">
+      <file name="recommendationsService.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song/back-end/src/services/recommendationsService.ts">
         <metrics statements="23" coveredstatements="23" conditionals="3" coveredconditionals="3" methods="6" coveredmethods="6"/>
         <line num="2" count="2" type="stmt"/>
         <line num="3" count="2" type="stmt"/>
