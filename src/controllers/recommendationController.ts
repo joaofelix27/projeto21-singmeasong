@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import { recommendationSchema } from "../schemas/recommendationsSchemas.js";
+import { recommendationService2 } from "../services/recommendationService2.js";
 import { recommendationService } from "../services/recommendationsService.js";
 import { wrongSchemaError } from "../utils/errorUtils.js";
 
@@ -51,7 +52,7 @@ async function getTop(req: Request, res: Response) {
 async function getById(req: Request, res: Response) {
   const { id } = req.params;
 
-  const recommendation = await recommendationService.getById(+id);
+  const recommendation = await recommendationService2.getById(+id);
   res.send(recommendation);
 }
 

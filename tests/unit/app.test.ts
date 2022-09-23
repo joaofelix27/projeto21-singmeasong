@@ -4,6 +4,7 @@ import { createOnlyGtrOrLteThan10 } from "../factories/createManyRecommendations
 import { deleteAllData } from "../factories/deleteAll";
 import {Recommendation} from "@prisma/client";
 import { recommendationService2 } from "../../src/services/recommendationService2";
+import { notFoundError } from "../../src/utils/errorUtils";
 
 beforeEach(async () => {
   deleteAllData();
@@ -119,17 +120,97 @@ describe("Unit test of get", () => {
 });
 
 describe("Unit test of upvote", () => {
-  test("Test to upvote a recommendation  with a unvalid id", async () => {
-    const id = 1;
+  test("Test to upvote a recommendation with a unvalid id", async () => {
+    const id = Math.ceil(Math.random()*(100-10)+10);
 
-    jest.spyOn(recommendationRepository, "find").mockResolvedValueOnce(null);
+    jest.spyOn(recommendationService2, "getById").mockImplementation(()=>{
+      throw notFoundError();}
+      );
 
     const result = recommendationService.upvote(id);
+    jest.spyOn(recommendationRepository, "updateScore");
 
     expect(result).rejects.toEqual({
       type: "not_found",
       message: "",
     });
+    expect(recommendationRepository.updateScore).toBeCalledTimes(0)
+  });
+
+  test("Test to upvote a recommendation with a valid id", async () => {
+    const id = Math.ceil(Math.random()*(100-10)+10);
+    const recommendation = {
+      id: id,
+      name: "SuperBowl50",
+      youtubeLink: "https://www.youtube.com/watch?v=c9cUytejf1k",
+      score: 0,
+    };
+
+    jest.spyOn(recommendationService2, "getById").mockResolvedValueOnce(recommendation);
+    jest.spyOn(recommendationRepository, "updateScore")
+
+    const result = await recommendationService.upvote(id);
+
+    expect(recommendationRepository.updateScore).toBeCalledTimes(1)
+  });
+});
+
+describe("Unit test of downvote", () => {
+  test("Test to downvote a recommendation with a unvalid id", async () => {
+    const id = Math.ceil(Math.random()*(100-10)+10);
+
+    jest.spyOn(recommendationService2, "getById").mockImplementation(()=>{
+      throw notFoundError();}
+      );
+
+    const result = recommendationService.downvote(id);
+    jest.spyOn(recommendationRepository, "updateScore");
+    jest.spyOn(recommendationRepository, "remove")
+
+    expect(result).rejects.toEqual({
+      type: "not_found",
+      message: "",
+    });
+    expect(recommendationRepository.updateScore).toBeCalledTimes(0)
+    expect(recommendationRepository.remove).toBeCalledTimes(0)
+  });
+
+  test("Test to downvote a recommendation with a valid id and score after update gte -5", async () => {
+    const id = Math.ceil(Math.random()*(100-10)+10);
+    const recommendation = {
+      id: id,
+      name: "SuperBowl50",
+      youtubeLink: "https://www.youtube.com/watch?v=c9cUytejf1k",
+      score: Math.ceil(Math.random()*(1000+5)-5),
+    };
+
+    jest.spyOn(recommendationService2, "getById").mockResolvedValueOnce(recommendation);
+    const scoreAfter=recommendation.score-1
+    jest.spyOn(recommendationRepository, "updateScore").mockResolvedValueOnce({...recommendation,score:scoreAfter})
+    jest.spyOn(recommendationRepository, "remove")
+    const result = await recommendationService.downvote(id);
+
+    expect(recommendationRepository.updateScore).toBeCalledTimes(1)
+    expect(recommendationRepository.remove).toBeCalledTimes(0)
+  });
+  test("Test to downvote a recommendation with a valid id and score after update lt -5.And then, check if it was removed", async () => {
+    const id = Math.ceil(Math.random()*(100-10)+10);
+    const recommendation = {
+      id: id,
+      name: "SuperBowl50",
+      youtubeLink: "https://www.youtube.com/watch?v=c9cUytejf1k",
+      score: Math.ceil(Math.random()*(-1000+5)-5),
+    };
+
+    jest.spyOn(recommendationService2, "getById").mockResolvedValueOnce(recommendation);
+    const scoreAfter=recommendation.score-1
+    jest.spyOn(recommendationRepository, "updateScore").mockResolvedValueOnce({...recommendation,score:scoreAfter})
+    jest.spyOn(recommendationRepository, "remove").mockImplementationOnce(async () => {})
+
+    const result = await recommendationService.downvote(id);
+
+    expect(recommendationRepository.updateScore).toBeCalledTimes(1)
+    expect(recommendationRepository.remove).toBeCalledTimes(1)
   });
 });
 
@@ -298,6 +379,7 @@ describe ("Unit test of getRandom", ()=> {
 
   })
 })
+
 
 async function checkIfAllElementsHaveScoreGt10 (array:Array<Recommendation>){
   for(let i=0;i<array.length;i++){

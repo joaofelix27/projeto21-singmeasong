@@ -249,24 +249,24 @@ async function findRecommendation(name: string) {
   });
 }
 
-it("Try to GET /recommendations/random having a song recommendation  with score greater than 10 returned 70% of time", async () => {
-  const recommendation = await createManyScoreMixedRecommedations();
-  const urlArray = Array(length).fill("/recommendations/random");
-  const scoreGreaterThan10 = [];
-  const promises = urlArray.map(async (url) => {
-    const result = await agent.get("/recommendations/random");
-    const randomRecommendation = result.body;
-    if (randomRecommendation.score > 10) {
-      scoreGreaterThan10.push(randomRecommendation);
-    }
-  });
-    Promise.all(promises).then( ()=> {
-    expect(scoreGreaterThan10[0]).toHaveProperty("id");
-    expect(scoreGreaterThan10[0]).toHaveProperty("name");
-    expect(scoreGreaterThan10[0]).toHaveProperty("youtubeLink");
-    expect(scoreGreaterThan10[0]).toHaveProperty("score");
-    expect(scoreGreaterThan10.length).toBeGreaterThanOrEqual(1350);
-    expect(scoreGreaterThan10.length).toBeLessThanOrEqual(1450);
-  }
-  )
-});
+// it("Try to GET /recommendations/random having a song recommendation  with score greater than 10 returned 70% of time", async () => {
+//   const recommendation = await createManyScoreMixedRecommedations();
+//   const urlArray = Array(length).fill("/recommendations/random");
+//   const scoreGreaterThan10 = [];
+//   const promises = urlArray.map(async (url) => {
+//     const result = await agent.get("/recommendations/random");
+//     const randomRecommendation = result.body;
+//     if (randomRecommendation.score > 10) {
+//       scoreGreaterThan10.push(randomRecommendation);
+//     }
+//   });
+//     Promise.all(promises).then( ()=> {
+//     expect(scoreGreaterThan10[0]).toHaveProperty("id");
+//     expect(scoreGreaterThan10[0]).toHaveProperty("name");
+//     expect(scoreGreaterThan10[0]).toHaveProperty("youtubeLink");
+//     expect(scoreGreaterThan10[0]).toHaveProperty("score");
+//     expect(scoreGreaterThan10.length).toBeGreaterThanOrEqual(1350);
+//     expect(scoreGreaterThan10.length).toBeLessThanOrEqual(1450);
+//   }
+//   )
+// });

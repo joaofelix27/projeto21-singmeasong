@@ -17,6 +17,8 @@ export default {
     'test-config',
     'interfaces',
     'repositories',
+    'controllers',
+    'middlewares',
     'jestGlobalMocks.ts',
     '<rootDir>/src/server.ts',
     '<rootDir>/src/database.ts',
