@@ -23,30 +23,30 @@
         <div class='clearfix'>
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">51.51% </span>
+                <span class="strong">63.63% </span>
                 <span class="quiet">Statements</span>
-                <span class='fraction'>17/33</span>
-            </div>
-        
-            
-            <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
-                <span class="quiet">Branches</span>
-                <span class='fraction'>3/6</span>
+                <span class='fraction'>21/33</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
                 <span class="strong">66.66% </span>
-                <span class="quiet">Functions</span>
-                <span class='fraction'>6/9</span>
+                <span class="quiet">Branches</span>
+                <span class='fraction'>4/6</span>
             </div>
         
             
             <div class='fl pad1y space-right2'>
-                <span class="strong">50% </span>
+                <span class="strong">77.77% </span>
+                <span class="quiet">Functions</span>
+                <span class='fraction'>7/9</span>
+            </div>
+        
+            
+            <div class='fl pad1y space-right2'>
+                <span class="strong">62.5% </span>
                 <span class="quiet">Lines</span>
-                <span class='fraction'>16/32</span>
+                <span class='fraction'>20/32</span>
             </div>
         
             
@@ -159,7 +159,8 @@
 <a name='L94'></a><a href='#L94'>94</a>
 <a name='L95'></a><a href='#L95'>95</a>
 <a name='L96'></a><a href='#L96'>96</a>
-<a name='L97'></a><a href='#L97'>97</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
+<a name='L97'></a><a href='#L97'>97</a>
+<a name='L98'></a><a href='#L98'>98</a></td><td class="line-coverage quiet"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -225,16 +226,16 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">4x</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">2x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -246,6 +247,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -320,18 +322,18 @@ async function <span class="fstat-no" title="function not covered" >getRandom(</
 <span class="cstat-no" title="statement not covered" >  return recommendations[randomIndex];</span>
 }
 &nbsp;
-async function <span class="fstat-no" title="function not covered" >getByScore(</span>scoreFilter: "gt" | "lte") {
-  const recommendations = <span class="cstat-no" title="statement not covered" >await recommendationRepository.findAll({</span>
+async function getByScore(scoreFilter: "gt" | "lte") {
+  const recommendations = await recommendationRepository.findAll({
     score: 10,
     scoreFilter,
   });
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  <span class="missing-if-branch" title="if path not taken" >I</span>if (recommendations.length &gt; 0) {</span>
-<span class="cstat-no" title="statement not covered" >    return recommendations;</span>
+  if (recommendations.length &gt; 0) {
+    return recommendations;
   }
 &nbsp;
-<span class="cstat-no" title="statement not covered" >  return recommendationRepository.findAll();</span>
-}
+  return recommendationRepository.findAll();
+}//ok acredito que devia ta faltando algo
 &nbsp;
 function getScoreFilter(random: number) {
   if (random &lt; 0.7) {
@@ -339,7 +341,7 @@ function getScoreFilter(random: number) {
   }
 &nbsp;
   return "lte";
-}
+} //ok
 &nbsp;
 export const recommendationService = {
   insert,
@@ -349,7 +351,8 @@ export const recommendationService = {
   get,
   getById: getByIdOrFail,
   getTop,
-  getScoreFilter
+  getScoreFilter,
+  getByScore
 };
 &nbsp;</pre></td></tr></table></pre>
 
@@ -358,7 +361,7 @@ export const recommendationService = {
             <div class='footer quiet pad2 space-top1 center small'>
                 Code coverage generated by
                 <a href="https://istanbul.js.org/" target="_blank" rel="noopener noreferrer">istanbul</a>
-                at 2022-09-22T22:51:40.172Z
+                at 2022-09-23T01:54:36.848Z
             </div>
         <script src="../../prettify.js"></script>
         <script>

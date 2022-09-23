@@ -66,3 +66,24 @@ export  async function createManyScoreFixedRecommedations(type) {
     }
     return {names:[lowerScoreName,greaterScoreName],amount:amount}
   }
+
+  export  async function createOnlyGtrOrLteThan10( scoreFilter:"gt"|"lte") {
+    const amount = Math.ceil(Math.random() * (50 - 10) + 10);
+    let maxValue=1000
+    let minValue=11
+    if (scoreFilter==="lte"){
+      maxValue=10
+      minValue=-5
+    }
+    const filledArray = [];
+    for(let i=0;i<amount;i++){
+      const recommendation = {
+        id: Math.ceil(Math.random() * (1000 - 1) + 1),
+        name: `SuperBowl${i}`,
+        youtubeLink: "https://www.youtube.com/watch?v=c9cUytejf1k",
+        score: Math.ceil(Math.random() * (maxValue -minValue) + minValue),
+      };
+      filledArray.push(recommendation)
+    }
+    return filledArray
+  }

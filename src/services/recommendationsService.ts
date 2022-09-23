@@ -74,7 +74,7 @@ async function getByScore(scoreFilter: "gt" | "lte") {
   }
 
   return recommendationRepository.findAll();
-}
+}//ok acredito que devia ta faltando algo
 
 function getScoreFilter(random: number) {
   if (random < 0.7) {
@@ -92,5 +92,6 @@ export const recommendationService = {
   get,
   getById: getByIdOrFail,
   getTop,
-  getScoreFilter
+  getScoreFilter,
+  getByScore
 };

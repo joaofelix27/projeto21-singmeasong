@@ -1,9 +1,12 @@
 import { recommendationRepository } from "../../src/repositories/recommendationRepository";
 import { recommendationService } from "../../src/services/recommendationsService";
+import { createOnlyGtrOrLteThan10 } from "../factories/createManyRecommendationsFactory";
 import { deleteAllData } from "../factories/deleteAll";
+import {Recommendation} from "@prisma/client";
 
 beforeEach(async () => {
   deleteAllData();
+  jest.resetAllMocks();
 });
 
 describe("Unit test of insert", () => {
@@ -104,7 +107,6 @@ describe("Unit test of get", () => {
       .mockResolvedValueOnce(arrayReturned);
 
     const result = await recommendationService.get();
-    console.log("EAE", result);
 
     expect(result).toBeInstanceOf(Array);
     expect(result[0]).toBeInstanceOf(Object);
@@ -139,7 +141,7 @@ describe("Unit test of getTop", () => {
         id: Math.ceil(Math.random() * (1000 - 1) + 1),
         name: `SuperBowl${i}`,
         youtubeLink: "https://www.youtube.com/watch?v=c9cUytejf1k",
-        score: Math.ceil(Math.random() * (1000 - 10) + 10),
+        score: Math.ceil(Math.random() * (1000 + 5) - 5),
       };
       filledArray.push(recommendation)
     }
@@ -160,7 +162,6 @@ describe("Unit test of getTop", () => {
 describe ("Unit test of getScoreFilter", ()=> {
   test ("Get score when random under 0.7", async () => {
     const random = Math.random() * (0.69);
-    console.log("random",random)
 
     const result= recommendationService.getScoreFilter(random)
 
@@ -170,7 +171,6 @@ describe ("Unit test of getScoreFilter", ()=> {
 
   test ("Get score when random above 0.7", async () => {
     const random = Math.random() * (1-0.7) + 0.7;
-    console.log("random",random)
 
     const result= recommendationService.getScoreFilter(random)
 
@@ -178,3 +178,97 @@ describe ("Unit test of getScoreFilter", ()=> {
 
   })
 })
+
+describe ("Unit test of getByScore", ()=> {
+  test ("Get score when score filter is gt", async () => {
+    const filledArray= await createOnlyGtrOrLteThan10 ("gt")
+
+    jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(filledArray)
+    const result= await recommendationService.getByScore("gt")
+
+    const confirmIfAllGreater = await checkIfAllElementsHaveScoreGt10(result);
+
+    expect(confirmIfAllGreater).toBeTruthy()
+    expect(result).toBeInstanceOf(Array)
+    expect(result[0]).toHaveProperty("id");
+    expect(result[0]).toHaveProperty("name");
+    expect(result[0]).toHaveProperty("youtubeLink");
+    expect(result[0]).toHaveProperty("score");
+    expect(recommendationRepository.findAll).toBeCalledTimes(1)
+
+  })
+
+  test ("Get score when score filter is lte", async () => {
+    const filledArray= await createOnlyGtrOrLteThan10 ("lte")
+
+    jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(filledArray)
+    const result= await recommendationService.getByScore("lte")
+
+    const confirmIfAllGreater = await checkIfAllElementsHaveScoreGt10(result);
+
+    expect(confirmIfAllGreater).toBeFalsy()
+
+    expect(result).toBeInstanceOf(Array)
+    expect(result[0]).toHaveProperty("id");
+    expect(result[0]).toHaveProperty("name");
+    expect(result[0]).toHaveProperty("youtubeLink");
+    expect(result[0]).toHaveProperty("score");
+    expect(recommendationRepository.findAll).toBeCalledTimes(1)
+
+  })
+
+  test ("Get score when returned array is empty and the score filter is lte", async () => {
+    const emptyArray = [];
+    const filledArray= await createOnlyGtrOrLteThan10 ("gt")
+
+    jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(emptyArray)
+    jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(filledArray)
+    const result= await recommendationService.getByScore("lte")
+
+
+    const confirmIfAllGreater = await checkIfAllElementsHaveScoreGt10(result);
+
+    expect(confirmIfAllGreater).toBeTruthy()
+    expect(result).toBeInstanceOf(Array)
+    expect(result[0]).toBeInstanceOf(Object);
+    expect(result[0]).toHaveProperty("id");
+    expect(result[0]).toHaveProperty("name");
+    expect(result[0]).toHaveProperty("youtubeLink");
+    expect(result[0]).toHaveProperty("score");
+    expect(recommendationRepository.findAll).toBeCalledTimes(2)
+
+  })
+
+  test ("Get score when returned array is empty and the score filter is gt", async () => {
+    const emptyArray = [];
+    const filledArray= await createOnlyGtrOrLteThan10 ("lte")
+ 
+    jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(emptyArray)
+    jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(filledArray)
+    const result= await recommendationService.getByScore("gt")
+
+    const confirmIfAllGreater = await checkIfAllElementsHaveScoreGt10(result);
+
+    expect(confirmIfAllGreater).toBeFalsy()
+
+    expect(result).toBeInstanceOf(Array)
+    expect(result[0]).toBeInstanceOf(Object);
+    expect(result[0]).toHaveProperty("id");
+    expect(result[0]).toHaveProperty("name");
+    expect(result[0]).toHaveProperty("youtubeLink");
+    expect(result[0]).toHaveProperty("score");
+    expect(recommendationRepository.findAll).toBeCalledTimes(2)
+
+  })
+})
+
+
+
+async function checkIfAllElementsHaveScoreGt10 (array:Array<Recommendation>){
+  for(let i=0;i<array.length;i++){
+    if(array[i].score<=10){
+      return false
+    }
+  }
+  return true
+}
