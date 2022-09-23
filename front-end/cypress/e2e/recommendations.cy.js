@@ -14,7 +14,7 @@ beforeEach(() => {
 });
 
 describe('GET /', () => {
-  it('Expect to ger returned the last ten recommendations', () => {
+  it('Expect to return the last ten recommendations', () => {
      cy.populate();
    
   
