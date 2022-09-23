@@ -1,6 +1,7 @@
 import { Recommendation } from "@prisma/client";
 import { recommendationRepository } from "../repositories/recommendationRepository.js";
 import { conflictError, notFoundError } from "../utils/errorUtils.js";
+import { recommendationService2 } from "./recommendationService2.js";
 
 export type CreateRecommendationData = Omit<Recommendation, "id" | "score">;
 
@@ -52,37 +53,17 @@ async function getTop(amount: number) {
 
 async function getRandom() {
   const random = Math.random();
-  const scoreFilter = getScoreFilter(random);
+  const scoreFilter = await recommendationService2.getScoreFilter(random);
 
-  const recommendations = await getByScore(scoreFilter);
+  const recommendations = await recommendationService2.getByScore(scoreFilter);
   if (recommendations.length === 0) {
     throw notFoundError();
   }
-
-  const randomIndex = Math.floor(Math.random() * recommendations.length);
+  const randomIndex =  Math.floor(Math.random() * recommendations.length);
   return recommendations[randomIndex];
 }
 
-async function getByScore(scoreFilter: "gt" | "lte") {
-  const recommendations = await recommendationRepository.findAll({
-    score: 10,
-    scoreFilter,
-  });
 
-  if (recommendations.length > 0) {
-    return recommendations;
-  }
-
-  return recommendationRepository.findAll();
-}//ok acredito que devia ta faltando algo
-
-function getScoreFilter(random: number) {
-  if (random < 0.7) {
-    return "gt";
-  }
-
-  return "lte";
-} //ok
 
 export const recommendationService = {
   insert,
@@ -91,7 +72,5 @@ export const recommendationService = {
   getRandom,
   get,
   getById: getByIdOrFail,
-  getTop,
-  getScoreFilter,
-  getByScore
+  getTop
 };

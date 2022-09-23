@@ -3,6 +3,7 @@ import { recommendationService } from "../../src/services/recommendationsService
 import { createOnlyGtrOrLteThan10 } from "../factories/createManyRecommendationsFactory";
 import { deleteAllData } from "../factories/deleteAll";
 import {Recommendation} from "@prisma/client";
+import { recommendationService2 } from "../../src/services/recommendationService2";
 
 beforeEach(async () => {
   deleteAllData();
@@ -163,7 +164,7 @@ describe ("Unit test of getScoreFilter", ()=> {
   test ("Get score when random under 0.7", async () => {
     const random = Math.random() * (0.69);
 
-    const result= recommendationService.getScoreFilter(random)
+    const result= recommendationService2.getScoreFilter(random)
 
     expect(result).toEqual("gt")
 
@@ -172,7 +173,7 @@ describe ("Unit test of getScoreFilter", ()=> {
   test ("Get score when random above 0.7", async () => {
     const random = Math.random() * (1-0.7) + 0.7;
 
-    const result= recommendationService.getScoreFilter(random)
+    const result= recommendationService2.getScoreFilter(random)
 
     expect(result).toEqual("lte")
 
@@ -184,7 +185,7 @@ describe ("Unit test of getByScore", ()=> {
     const filledArray= await createOnlyGtrOrLteThan10 ("gt")
 
     jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(filledArray)
-    const result= await recommendationService.getByScore("gt")
+    const result= await recommendationService2.getByScore("gt")
 
     const confirmIfAllGreater = await checkIfAllElementsHaveScoreGt10(result);
 
@@ -202,7 +203,7 @@ describe ("Unit test of getByScore", ()=> {
     const filledArray= await createOnlyGtrOrLteThan10 ("lte")
 
     jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(filledArray)
-    const result= await recommendationService.getByScore("lte")
+    const result= await recommendationService2.getByScore("lte")
 
     const confirmIfAllGreater = await checkIfAllElementsHaveScoreGt10(result);
 
@@ -223,7 +224,7 @@ describe ("Unit test of getByScore", ()=> {
 
     jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(emptyArray)
     jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(filledArray)
-    const result= await recommendationService.getByScore("lte")
+    const result= await recommendationService2.getByScore("lte")
 
 
     const confirmIfAllGreater = await checkIfAllElementsHaveScoreGt10(result);
@@ -245,7 +246,7 @@ describe ("Unit test of getByScore", ()=> {
  
     jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(emptyArray)
     jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(filledArray)
-    const result= await recommendationService.getByScore("gt")
+    const result= await recommendationService2.getByScore("gt")
 
     const confirmIfAllGreater = await checkIfAllElementsHaveScoreGt10(result);
 
@@ -260,9 +261,52 @@ describe ("Unit test of getByScore", ()=> {
     expect(recommendationRepository.findAll).toBeCalledTimes(2)
 
   })
+
+  test ("Get score when both returned array is empty", async () => {
+    const emptyArray = [];
+ 
+    jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(emptyArray);
+    jest.spyOn(recommendationRepository,'findAll').mockResolvedValueOnce(emptyArray);
+    const result= await recommendationService2.getByScore("gt");
+
+    expect(result).toBeInstanceOf(Array);
+    expect(result.length).toEqual(0);
+    expect(recommendationRepository.findAll).toBeCalledTimes(2);
+
+  })
 })
 
+describe ("Unit test of getRandom", ()=> {
+  test ("Get score when there aren't recommendations on the database", async () => {
+    const emptyArray=[]
 
+    jest.spyOn(recommendationService2,'getScoreFilter').mockResolvedValueOnce("gt")
+    jest.spyOn(recommendationService2,'getByScore').mockResolvedValueOnce(emptyArray)
+    
+    const result= recommendationService.getRandom()
+
+    expect(result).rejects.toEqual({
+      type: "not_found",
+      message: "",
+    });
+
+  })
+  test ("Get score when there are recommendations on the database", async () => {
+    const filledArray= await createOnlyGtrOrLteThan10 ("lte")
+
+    jest.spyOn(recommendationService2,'getScoreFilter').mockResolvedValueOnce("gt")
+    jest.spyOn(recommendationService2,'getByScore').mockResolvedValueOnce(filledArray)
+    
+    const result= await recommendationService.getRandom()
+
+    expect(result).toBeInstanceOf(Object);
+    expect(result).toHaveProperty("id");
+    expect(result).toHaveProperty("name");
+    expect(result).toHaveProperty("youtubeLink");
+    expect(result).toHaveProperty("score");
+
+  })
+})
 
 async function checkIfAllElementsHaveScoreGt10 (array:Array<Recommendation>){
   for(let i=0;i<array.length;i++){
