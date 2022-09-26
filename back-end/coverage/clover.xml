@@ -1,22 +1,27 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1663964364208" clover="3.2.0">
-  <project timestamp="1663964364208" name="All files">
-    <metrics statements="89" coveredstatements="89" conditionals="7" coveredconditionals="7" methods="16" coveredmethods="16" elements="112" coveredelements="112" complexity="0" loc="89" ncloc="89" packages="5" files="6" classes="6"/>
+<coverage generated="1664225440764" clover="3.2.0">
+  <project timestamp="1664225440764" name="All files">
+    <metrics statements="100" coveredstatements="100" conditionals="8" coveredconditionals="8" methods="16" coveredmethods="16" elements="124" coveredelements="124" complexity="0" loc="100" ncloc="100" packages="5" files="7" classes="7"/>
     <package name="src">
-      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="16" coveredstatements="16" conditionals="1" coveredconditionals="1" methods="0" coveredmethods="0"/>
       <file name="app.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song/back-end/src/app.ts">
-        <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <metrics statements="16" coveredstatements="16" conditionals="1" coveredconditionals="1" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
         <line num="2" count="1" type="stmt"/>
         <line num="3" count="1" type="stmt"/>
         <line num="4" count="1" type="stmt"/>
         <line num="5" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
         <line num="7" count="1" type="stmt"/>
-        <line num="8" count="1" type="stmt"/>
         <line num="9" count="1" type="stmt"/>
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
+        <line num="13" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
+        <line num="15" count="1" type="cond" truecount="1" falsecount="0"/>
+        <line num="16" count="1" type="stmt"/>
+        <line num="18" count="1" type="stmt"/>
+        <line num="20" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.controllers">
@@ -52,7 +57,7 @@
       </file>
     </package>
     <package name="src.routers">
-      <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+      <metrics statements="17" coveredstatements="17" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
       <file name="recommendationRouter.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song/back-end/src/routers/recommendationRouter.ts">
         <metrics statements="11" coveredstatements="11" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
         <line num="1" count="1" type="stmt"/>
@@ -66,6 +71,15 @@
         <line num="11" count="1" type="stmt"/>
         <line num="12" count="1" type="stmt"/>
         <line num="14" count="1" type="stmt"/>
+      </file>
+      <file name="testsRouter.ts" path="/home/joao/Documents/Projetos Driven/projeto21-sing-me-a-song/sing-me-a-song/projeto21-sing-me-a-song/back-end/src/routers/testsRouter.ts">
+        <metrics statements="6" coveredstatements="6" conditionals="0" coveredconditionals="0" methods="0" coveredmethods="0"/>
+        <line num="1" count="1" type="stmt"/>
+        <line num="2" count="1" type="stmt"/>
+        <line num="4" count="1" type="stmt"/>
+        <line num="6" count="1" type="stmt"/>
+        <line num="7" count="1" type="stmt"/>
+        <line num="9" count="1" type="stmt"/>
       </file>
     </package>
     <package name="src.schemas">
@@ -86,12 +100,12 @@
         <line num="4" count="2" type="stmt"/>
         <line num="5" count="4006" type="stmt"/>
         <line num="9" count="4006" type="cond" truecount="1" falsecount="0"/>
-        <line num="10" count="2985" type="stmt"/>
-        <line num="13" count="1021" type="stmt"/>
+        <line num="10" count="2994" type="stmt"/>
+        <line num="13" count="1012" type="stmt"/>
         <line num="16" count="2" type="stmt"/>
         <line num="17" count="4003" type="cond" truecount="1" falsecount="0"/>
-        <line num="18" count="2806" type="stmt"/>
-        <line num="21" count="1197" type="stmt"/>
+        <line num="18" count="2815" type="stmt"/>
+        <line num="21" count="1188" type="stmt"/>
         <line num="25" count="14" type="stmt"/>
         <line num="26" count="14" type="cond" truecount="1" falsecount="0"/>
         <line num="28" count="10" type="stmt"/>
