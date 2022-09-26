@@ -18,8 +18,10 @@ beforeEach(async () => {
 describe("Add a new song recommendation", () => {
   it("Try to POST /recommendations with wrong schema", async () => {
     const recommendation = await createRecommedations();
-    const {name,...wrongSchemaRecommendation}=recommendation
-    const result= await agent.post("/recommendations").send(wrongSchemaRecommendation);
+    const { name, ...wrongSchemaRecommendation } = recommendation;
+    const result = await agent
+      .post("/recommendations")
+      .send(wrongSchemaRecommendation);
 
     expect(result.status).toBe(422);
   });
@@ -225,22 +227,22 @@ describe("Try to get the recommendations ordered by amounts", () => {
     const result = await agent.get(`/recommendations/top/${amount}`);
     expect(result.status).toBe(200);
     expect(result.body).toBeInstanceOf(Array);
-    expect(result.body[0]).toBeFalsy()
+    expect(result.body[0]).toBeFalsy();
   });
 
   it("Try to GET /recommendations/top/amount ", async () => {
-    
-    const lowerAndGreaterScore= await createBasedOnScoreRanking();
-    console.log("Eai",lowerAndGreaterScore?.amount)
-    const result = await agent.get(`/recommendations/top/${lowerAndGreaterScore?.amount}`);
-    const resultLength=result.body.length
-    const lowerScoreName=result.body[resultLength-1]?.name
-    const greaterScoreName=result.body[0]?.name
+    const lowerAndGreaterScore = await createBasedOnScoreRanking();
+    console.log("Eai", lowerAndGreaterScore?.amount);
+    const result = await agent.get(
+      `/recommendations/top/${lowerAndGreaterScore?.amount}`
+    );
+    const resultLength = result.body.length;
+    const lowerScoreName = result.body[resultLength - 1]?.name;
+    const greaterScoreName = result.body[0]?.name;
     expect(result.status).toBe(200);
     expect(result.body).toBeInstanceOf(Array);
     expect(lowerScoreName).toEqual(lowerAndGreaterScore.names[0]);
     expect(greaterScoreName).toEqual(lowerAndGreaterScore.names[1]);
-
   });
 }); //Amount
 

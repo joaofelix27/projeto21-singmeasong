@@ -5,8 +5,6 @@ import { recommendationService2 } from "./recommendationService2.js";
 
 export type CreateRecommendationData = Omit<Recommendation, "id" | "score">;
 
-
-
 async function insert(createRecommendationData: CreateRecommendationData) {
   const existingRecommendation = await recommendationRepository.findByName(
     createRecommendationData.name
@@ -15,7 +13,7 @@ async function insert(createRecommendationData: CreateRecommendationData) {
     throw conflictError("Recommendations names must be unique");
 
   await recommendationRepository.create(createRecommendationData);
-} //ok
+}
 
 async function upvote(id: number) {
   await recommendationService2.getById(id);
@@ -38,11 +36,11 @@ async function downvote(id: number) {
 
 async function get() {
   return recommendationRepository.findAll();
-} //ok
+}
 
 async function getTop(amount: number) {
   return recommendationRepository.getAmountByScore(amount);
-}//ok
+}
 
 async function getRandom() {
   const random = Math.random();
@@ -52,11 +50,9 @@ async function getRandom() {
   if (recommendations.length === 0) {
     throw notFoundError();
   }
-  const randomIndex =  Math.floor(Math.random() * recommendations.length);
+  const randomIndex = Math.floor(Math.random() * recommendations.length);
   return recommendations[randomIndex];
-}//ok
-
-
+}
 
 export const recommendationService = {
   insert,
@@ -64,5 +60,5 @@ export const recommendationService = {
   downvote,
   getRandom,
   get,
-  getTop
+  getTop,
 };

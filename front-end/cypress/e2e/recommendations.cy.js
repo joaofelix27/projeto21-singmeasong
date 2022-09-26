@@ -16,10 +16,10 @@ describe("POST /", () => {
   it("Expect to create a recommendation", () => {
     cy.visit(`${frontUrl}/`);
 
-    const name="eae fiii"
-    const youtubeLink="https://www.youtube.com/watch?v=37SwqREHRGI"
+    const name = "eae fiii";
+    const youtubeLink = "https://www.youtube.com/watch?v=37SwqREHRGI";
 
-      cy.get('[data-test-id="test-input-name"]').type(name);
+    cy.get('[data-test-id="test-input-name"]').type(name);
     cy.get('[data-test-id="test-input-youtube"]').type(youtubeLink);
 
     cy.intercept("POST", backUrl).as("recommendationsPost");
@@ -35,15 +35,15 @@ describe("POST /", () => {
   it("Expect to create a repeated recommendation", () => {
     cy.visit(`${frontUrl}/`);
 
-    const name="eae fiii"
-    const youtubeLink="https://www.youtube.com/watch?v=37SwqREHRGI"
+    const name = "eae fiii";
+    const youtubeLink = "https://www.youtube.com/watch?v=37SwqREHRGI";
 
     cy.get('[data-test-id="test-input-name"]').type(name);
     cy.get('[data-test-id="test-input-youtube"]').type(youtubeLink);
 
     cy.get('[data-test-id="test-button-create"]').click();
 
-    cy.intercept("POST", backUrl).as("recommendationsPost");    
+    cy.intercept("POST", backUrl).as("recommendationsPost");
 
     cy.get('[data-test-id="test-input-name"]').type(name);
     cy.get('[data-test-id="test-input-youtube"]').type(youtubeLink);
@@ -57,7 +57,6 @@ describe("POST /", () => {
   });
 });
 
-
 describe("GET /", () => {
   it("Expect to return the last ten recommendations", () => {
     cy.populate();
@@ -65,8 +64,6 @@ describe("GET /", () => {
     cy.visit(`${frontUrl}/`);
 
     cy.intercept("GET", backUrl).as("recommendations");
-
-    
 
     cy.request("GET", backUrl);
 
@@ -97,7 +94,7 @@ describe("GET /top", () => {
       expect(statusCode).eq(200);
     });
   });
-});//remember to compare the score between the first one and the lastone
+}); //remember to compare the score between the first one and the lastone
 
 describe("GET /random", () => {
   it("Expect to return the ten highest score recommendations", () => {
@@ -119,7 +116,7 @@ describe("GET /random", () => {
 
 describe("GET /:id/upvote", () => {
   it("Expect to upvote the recommendation with the sent id", () => {
-    const id=1
+    const id = 1;
     cy.visit(`${frontUrl}/top`);
     cy.populate();
 
@@ -134,13 +131,11 @@ describe("GET /:id/upvote", () => {
       expect(statusCode).eq(200);
     });
   });
-
-});//need to do the test when the id doesnt exists
-
+}); //need to do the test when the id doesnt exists
 
 describe("GET /:id/downvote", () => {
   it("Expect to downvote the recommendation with the sent id", () => {
-    const id=1
+    const id = 1;
     cy.visit(`${frontUrl}/top`);
     cy.populate();
 
@@ -155,4 +150,4 @@ describe("GET /:id/downvote", () => {
       expect(statusCode).eq(200);
     });
   });
-});//need to do the test when the id doesnt exists
+}); //need to do the test when the id doesnt exists
